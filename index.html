@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="כמותן: כתב כמויות מדוד ומודל תלת-ממדי מתוכניות חשמל, עם מקור לכל מספר.">
+<meta property="og:title" content="כמותן">
+<meta property="og:description" content="כתב כמויות מדוד ומודל תלת-ממדי מתוכניות חשמל, עם מקור לכל מספר.">
+<meta property="og:image" content="img/m1_overview.webp">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>כמותן</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700&family=Assistant:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a right-to-left product page. One wide column of sections; screenshots run full column width,
+   the model views sit in a two-column grid. Accent = the app's burnt orange; drawings stay on a cool paper ground. */
+:root {
+  --paper: #f5f3ee;        /* page */
+  --sheet: #ffffff;        /* cards, figures */
+  --ink: #1e1c19;          /* text */
+  --ink-2: #5f5a52;        /* secondary text */
+  --line: #e3ded4;         /* rules, borders */
+  --accent: #c2501d;       /* the app's orange */
+  --accent-soft: #fbe9df;
+  --tray: #d98a12;         /* tray orange from the model */
+  --wire: #2563eb;         /* power cable blue from the model */
+  --ok: #1d7a43;
+  --f-display: "Rubik", "Assistant", "Segoe UI", Arial, sans-serif;
+  --f-body: "Assistant", "Segoe UI", Arial, sans-serif;
+  --f-num: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #16171a; --sheet: #1f2125; --ink: #ece9e3; --ink-2: #a8a39a; --line: #33353b;
+    --accent: #f0804a; --accent-soft: #3a2419; --tray: #f0a83a; --wire: #6a9bff; --ok: #4cc27f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #16171a; --sheet: #1f2125; --ink: #ece9e3; --ink-2: #a8a39a; --line: #33353b;
+  --accent: #f0804a; --accent-soft: #3a2419; --tray: #f0a83a; --wire: #6a9bff; --ok: #4cc27f; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.65 var(--f-body); direction: rtl; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.2; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(26px, 3.2vw, 36px); font-weight: 700; }
+h3 { font-size: 20px; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--accent); }
+.num { font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+.eyebrow { font: 600 13px var(--f-body); letter-spacing: .08em; color: var(--accent); }
+.muted { color: var(--ink-2); }
+
+/* top bar */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+.top .wrap { display: flex; align-items: center; gap: 18px; padding-block: 10px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.logo { width: 38px; height: 38px; border-radius: 9px; background: var(--accent); color: #fff; display: grid; place-items: center; font: 700 22px var(--f-display); }
+.brand b { font: 700 21px var(--f-display); }
+.top nav { display: flex; gap: 16px; margin-inline-start: auto; flex-wrap: wrap; justify-content: flex-end; }
+.top nav a { color: var(--ink-2); text-decoration: none; font-size: 15px; }
+.top nav a:hover, .top nav a:focus-visible { color: var(--accent); }
+@media (max-width: 760px) { .top nav { display: none; } }
+
+/* hero */
+.hero { padding-block: 44px 28px; display: grid; gap: 22px; }
+.hero h1 { font-size: clamp(34px, 5.4vw, 60px); font-weight: 700; letter-spacing: -.01em; max-width: 17ch; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.lede { font-size: clamp(18px, 1.8vw, 21px); color: var(--ink-2); max-width: 62ch; }
+.video { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #eef2f5; aspect-ratio: 1266 / 657; max-width: 100%; }
+.video video { width: 100%; height: 100%; display: block; object-fit: cover; }
+.video .tag { position: absolute; inset-inline-start: 14px; bottom: 12px; background: rgba(20, 20, 20, .72); color: #fff; font-size: 13px; padding: 4px 10px; border-radius: 999px; }
+
+/* figures strip */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.fact { background: var(--sheet); padding: 14px 16px; display: grid; gap: 2px; min-width: 0; }
+.fact .v { font: 600 26px var(--f-num); font-variant-numeric: tabular-nums; }
+.fact .k { font-size: 14px; color: var(--ink-2); }
+.facts-note { font-size: 14px; color: var(--ink-2); }
+
+section.block { padding-block: 56px; border-top: 1px solid var(--line); display: grid; gap: 22px; }
+.intro { display: grid; gap: 8px; max-width: 70ch; }
+
+/* steps: a real sequence */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; counter-reset: s; }
+.steps li { background: var(--sheet); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; counter-increment: s; min-width: 0; }
+.steps li::before { content: counter(s); font: 600 14px var(--f-num); color: var(--accent); width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--accent); display: grid; place-items: center; }
+.steps p { font-size: 15.5px; color: var(--ink-2); }
+
+/* screenshots */
+figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+figure img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line); background: var(--sheet); cursor: zoom-in; }
+figcaption { font-size: 15px; color: var(--ink-2); }
+figcaption b { color: var(--ink); font-weight: 600; }
+.shots { display: grid; gap: 30px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 820px) { .grid2 { grid-template-columns: 1fr; } }
+
+/* tabs for app screens */
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tabs button { font: 600 15px var(--f-body); border: 1px solid var(--line); background: var(--sheet); color: var(--ink); padding: 7px 14px; border-radius: 999px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.tabs button:focus-visible, .calc input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* findings list */
+.finds { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.find { background: var(--sheet); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.find .kind { font: 600 12.5px var(--f-body); letter-spacing: .06em; color: var(--accent); }
+.find p { font-size: 15.5px; color: var(--ink-2); }
+
+/* uses */
+.uses { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.use { border-top: 3px solid var(--accent); background: var(--sheet); border-radius: 0 0 12px 12px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.use p { font-size: 15.5px; color: var(--ink-2); }
+.use .who { font-size: 13.5px; color: var(--accent); font-weight: 600; }
+
+/* calculator */
+.calc { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 22px; background: var(--sheet); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+@media (max-width: 820px) { .calc { grid-template-columns: 1fr; } }
+.calc .inputs { display: grid; gap: 14px; }
+.calc label { display: grid; gap: 4px; font-size: 15px; font-weight: 600; }
+.calc label span { font-weight: 400; font-size: 13.5px; color: var(--ink-2); }
+.calc input { font: 500 18px var(--f-num); padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); width: 100%; direction: ltr; text-align: right; }
+.calc .out { display: grid; gap: 12px; align-content: start; }
+.bar { display: grid; gap: 6px; }
+.bar .row { display: flex; justify-content: space-between; gap: 8px; font-size: 15px; }
+.bar .track { height: 14px; border-radius: 7px; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
+.bar .fill { height: 100%; background: var(--ink-2); }
+.bar.app .fill { background: var(--accent); }
+.saving { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 4px; }
+.saving .big { font: 600 34px var(--f-num); color: var(--ok); font-variant-numeric: tabular-nums; }
+.calc-note { font-size: 14px; color: var(--ink-2); }
+
+/* cost estimating */
+.cost { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 820px) { .cost { grid-template-columns: 1fr; } }
+.flow { display: grid; gap: 8px; }
+.flow div { background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; font-size: 15.5px; }
+.flow div b { font-family: var(--f-display); font-weight: 600; }
+.flow .arrow { border: 0; background: none; padding: 0; text-align: center; color: var(--ink-2); font-size: 18px; }
+.status { display: inline-block; font-size: 13px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 2px 10px; }
+.cost ul, .privacy ul { margin: 0; padding-inline-start: 20px; display: grid; gap: 6px; }
+
+footer { border-top: 1px solid var(--line); padding-block: 26px 40px; color: var(--ink-2); font-size: 14px; }
+
+/* image viewer */
+dialog#zoom { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 94vh; }
+dialog#zoom::backdrop { background: rgba(10, 10, 10, .82); }
+dialog#zoom img { max-width: 96vw; max-height: 90vh; display: block; border-radius: 8px; cursor: zoom-out; }
+dialog#zoom p { color: #eee; font-size: 14px; padding: 6px 2px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="logo">כ</span><b>כמותן</b></a>
+    <nav aria-label="ניווט בעמוד">
+      <a href="#how">איך זה עובד</a>
+      <a href="#outputs">מה מקבלים</a>
+      <a href="#model">מודל תלת-ממדי</a>
+      <a href="#errors">שגיאות בתוכניות</a>
+      <a href="#uses">שימושים</a>
+      <a href="#savings">חיסכון</a>
+      <a href="#costs">הערכת עלויות</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <span class="eyebrow">ניתוח תוכניות חשמל · כתב כמויות מדוד</span>
+    <h1>מתוכניות PDF ל<em>כתב כמויות מדוד</em>, עם מקור לכל מספר</h1>
+    <p class="lede">כמותן קוראת את תוכניות החשמל של הפרויקט: גיליונות קומה, לוחות, סכמות ותוכניות תשתית. היא סופרת אביזרים, מודדת תעלות, מעריכה אורכי כבלים ובונה מודל תלת-ממדי. כל מספר בכתב הכמויות מקושר למקום שלו בשרטוט, כך שאפשר לבדוק כל שורה בלחיצה.</p>
+    <div class="video">
+      <video src="img/orbit.webm" poster="img/orbit_poster.webp" autoplay muted loop playsinline aria-label="סיבוב סביב המודל התלת-ממדי של הפרויקט לדוגמה"></video>
+      <span class="tag">המודל התלת-ממדי של הפרויקט לדוגמה</span>
+    </div>
+    <div class="facts" aria-label="נתוני הפרויקט לדוגמה">
+      <div class="fact"><span class="v">59</span><span class="k">קובצי PDF: תוכניות, לוחות וסכמות</span></div>
+      <div class="fact"><span class="v">28</span><span class="k">קומות ב-3 מגדלים ו-3 מפלסי חניון</span></div>
+      <div class="fact"><span class="v">7,963</span><span class="k">אביזרים שנספרו</span></div>
+      <div class="fact"><span class="v">117</span><span class="k">קווי הזנה, 6,977 מ' כבלים (אומדן)</span></div>
+      <div class="fact"><span class="v">162</span><span class="k">סימנים במקרא, עם ספירה לכל אחד</span></div>
+      <div class="fact"><span class="v">~2 ש'</span><span class="k">זמן עיבוד בהרצות שהושלמו</span></div>
+    </div>
+    <p class="facts-note">הנתונים מפרויקט אמיתי של שלושה מגדלי מגורים מעל חניון משותף. שם הפרויקט, היזם, המתכנן וקודי הגיליונות הוסרו מכל התמונות.</p>
+  </div>
+
+  <section class="block wrap" id="how">
+    <div class="intro">
+      <span class="eyebrow">איך זה עובד</span>
+      <h2>ארבעה שלבים, מהקבצים ועד בדיקה</h2>
+    </div>
+    <ol class="steps">
+      <li><h3>מעלים את החומרים</h3><p>קובצי PDF או ZIP כפי שהתקבלו מהמתכנן: תוכניות חשמל ותאורה, תשתיות, לוחות, סכמות וכתב הכמויות של המתכנן אם יש.</p></li>
+      <li><h3>העיבוד רץ במחשב</h3><p>זיהוי הגיליונות והקומות, אימות קנה מידה, ספירת סמלים לפי המקרא, קריאת הלוחות, מדידת תעלות ואומדן כבלים. ההתקדמות מוצגת שלב אחרי שלב, ועיבוד שנעצר ממשיך מאותה נקודה.</p></li>
+      <li><h3>מקבלים תוצרים</h3><p>כתב כמויות ב-Excel, דוח PDF, מקרא סימנים עם ספירה, מודל תלת-ממדי, וסיכום ממצאים שבו כל ממצא מקושר למקום בשרטוט.</p></li>
+      <li><h3>בודקים ומתקנים</h3><p>שואלים את Claude על הפרויקט בשיחה, מדווחים על בעיה, ושולחים בקשת תיקון. לקחים מאושרים נשמרים ומשפרים את הפרויקט הבא.</p></li>
+    </ol>
+  </section>
+
+  <section class="block wrap" id="outputs">
+    <div class="intro">
+      <span class="eyebrow">מה מקבלים</span>
+      <h2>האפליקציה עצמה</h2>
+      <p class="muted">צילומי מסך מהפרויקט לדוגמה. לחיצה על תמונה מגדילה אותה.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="מסכי האפליקציה">
+      <button role="tab" aria-selected="true" data-shot="0" id="tab0">סיכום וממצאים</button>
+      <button role="tab" aria-selected="false" data-shot="1" id="tab1">קישור לשרטוט</button>
+      <button role="tab" aria-selected="false" data-shot="2" id="tab2">כתב כמויות</button>
+      <button role="tab" aria-selected="false" data-shot="3" id="tab3">מקרא</button>
+      <button role="tab" aria-selected="false" data-shot="4" id="tab4">התקדמות והרצות</button>
+      <button role="tab" aria-selected="false" data-shot="5" id="tab5">שיחה עם Claude</button>
+    </div>
+    <figure id="appShot">
+      <img src="img/a_overview.webp" alt="" width="1800" height="771">
+      <figcaption></figcaption>
+    </figure>
+  </section>
+
+  <section class="block wrap" id="model">
+    <div class="intro">
+      <span class="eyebrow">מודל תלת-ממדי</span>
+      <h2>כל אביזר, תעלה וכבל, במקום שלו</h2>
+      <p class="muted">המודל נבנה מהשרטוטים עצמם. הקומות מיושרות לפי פירי המעליות, האביזרים יושבים על התוכנית, והכבלים עולים בפירים. בחירת פריט ברשימה מדגישה את כל המופעים שלו ופותחת את פרטיו, ולחיצה על אביזר מציגה אותו בשרטוט המקורי.</p>
+    </div>
+    <div class="grid2">
+      <figure><img src="img/m1_overview.webp" alt="המודל כולו: מגדלים, חניון, תעלות וכבלים" width="1800" height="802" loading="lazy"><figcaption><b>כל הפרויקט.</b> שלושה מגדלים מעל חניון משותף, 28 קומות, עם האביזרים, התעלות והכבלים.</figcaption></figure>
+      <figure><img src="img/m2_towers_top.webp" alt="מבט מלמעלה על שלושת המגדלים" width="1800" height="802" loading="lazy"><figcaption><b>מבט מלמעלה.</b> כל מגדל מוצמד לפירי המעליות שלו בחניון, ולכן המיקום ביניהם נכון.</figcaption></figure>
+      <figure><img src="img/m3_item_sockets.webp" alt="כל השקעים מסוג אחד מודגשים במודל" width="1800" height="802" loading="lazy"><figcaption><b>פריט אחד בכל הבניין.</b> 1,096 שקעים מסוג אחד מודגשים, עם ספירה לכל קומה וקישור לשרטוט של כל קומה.</figcaption></figure>
+      <figure><img src="img/m4_cables_trays.webp" alt="תעלות וכבלים בלבד" width="1800" height="802" loading="lazy"><figcaption><b>תעלות וכבלים.</b> אפשר להסתיר כל שכבה. כאן נשארו רק התעלות לפי צבע המערכת וקווי ההזנה בפירים.</figcaption></figure>
+      <figure><img src="img/m5_floor.webp" alt="קומה אחת עם האביזרים שלה" width="1800" height="802" loading="lazy"><figcaption><b>קומה אחת.</b> התוכנית של קומה טיפוסית עם כל האביזרים שנספרו בה.</figcaption></figure>
+      <figure><img src="img/m6_drawing.webp" alt="המודל ליד השרטוט המקורי עם הסימונים" width="1800" height="802" loading="lazy"><figcaption><b>מודל ושרטוט זה ליד זה.</b> שלטי היציאה בחניון מסומנים בשרטוט המקורי, ואפשר לעבור ביניהם בחיצים.</figcaption></figure>
+    </div>
+    <figure><img src="img/h_model_app.webp" alt="מסלול כבל גנרטור במודל בתוך האפליקציה" width="1800" height="827" loading="lazy"><figcaption><b>מסלול של כבל.</b> כבל מהגנרטור שעל הגג: יורד בפיר, עובר בקומת הקרקע ומגיע לפנל הכבאים. ליד הכבל מוצגים האורך, איך הוא חושב ואילו הנחות שימשו.</figcaption></figure>
+  </section>
+
+  <section class="block wrap" id="errors">
+    <div class="intro">
+      <span class="eyebrow">איתור שגיאות בתוכניות</span>
+      <h2>הספירה חושפת את מה שלא מסתדר</h2>
+      <p class="muted">כדי לספור ולמדוד, כמותן משווה בין הגיליונות, המקרא, הלוחות והסכמות. סתירות עולות בדרך, וכל אחת מקבלת קישור למקום בשרטוט. אלה דוגמאות שנמצאו בפרויקט לדוגמה:</p>
+    </div>
+    <div class="finds">
+      <div class="find"><span class="kind">קנה מידה</span><h3>גיליון בקנה מידה אחר משאר הסט</h3><p>גיליון קומת הקרקע מצויר ב-1:50, בלי כיתוב קנה מידה תקף, בתוך סט שכולו 1:100. השגיאה התגלתה כי קומות הבניינים לא התלכדו איתו. האורכים בקומה הזו נמדדו על גיליון אחר, ולכן לא הושפעו.</p></div>
+      <div class="find"><span class="kind">מקרא</span><h3>סמל אחד לשני פריטים</h3><p>במקרא, גלאי חום וגוף תאורה עגול מסומנים באותו סמל. הממצא מסומן לבדיקה עם קישור לשתי השורות במקרא.</p></div>
+      <div class="find"><span class="kind">לוחות</span><h3>סתירות במספור</h3><p>לוח שמופיע מוזן גם ממעגל 85 וגם ממעגל 86, ואותו מספר לוח שמשמש לשני לוחות שונים. הסתירות רשומות בגיליונות הלוחות בכתב הכמויות.</p></div>
+      <div class="find"><span class="kind">סמלים</span><h3>סמלים שמצוירים אחרת מהמקרא</h3><p>בגיליונות החניון הסמלים קטנים מהמקרא ומפורקים לקווים. כמותן בנתה תבניות מהשרטוט עצמו, וכל הבדל כזה מתועד במקרא.</p></div>
+      <div class="find"><span class="kind">הפניות</span><h3>פרטים מוגדלים והפניות חסרות</h3><p>11 פרטי לובי מוגדלים נבדקו מול האזור שהם מגדילים, כדי שאף אביזר לא ייספר פעמיים. הערה "ראה פרט 10" מפנה לפרט שלא נמצא בגיליונות שהתקבלו.</p></div>
+      <div class="find"><span class="kind">כתב הכמויות</span><h3>הפרש מול המתכנן</h3><p>כשמצורף כתב הכמויות של המתכנן, כל סעיף מוצג עם הכמות שנמדדה, הכמות של המתכנן וההפרש, ושורה עם פער גדול מסומנת.</p></div>
+    </div>
+  </section>
+
+  <section class="block wrap" id="uses">
+    <div class="intro">
+      <span class="eyebrow">שימושים</span>
+      <h2>למי זה מתאים</h2>
+    </div>
+    <div class="uses">
+      <div class="use"><span class="who">קבלני חשמל</span><h3>תמחור הצעה למכרז</h3><p>כמויות מדודות לכל סעיף, לפי קומה ולפי בניין, בימים הקצרים שבין קבלת התוכניות להגשה.</p></div>
+      <div class="use"><span class="who">יזמים, מפקחים ושמאי כמויות</span><h3>בדיקת כתב הכמויות של המתכנן</h3><p>השוואה סעיף-סעיף בין הכמות של המתכנן לבין מה שמצויר בפועל, עם קישור לשרטוט לכל פער.</p></div>
+      <div class="use"><span class="who">מנהלי פרויקטים</span><h3>גרסה חדשה של תוכניות</h3><p>מעלים את הגיליונות שהשתנו ומקבלים את הכמויות מחדש, בלי לספור שוב את כל הפרויקט.</p></div>
+      <div class="use"><span class="who">רכש</span><h3>הזמנת חומרים</h3><p>אורכי כבלים לפי סוג וחתך, תעלות לפי מידה וסוג, וכמות אביזרים לפי דגם. כל זה עם טווח מינימום–מקסימום לאומדנים.</p></div>
+      <div class="use"><span class="who">צוותי ביצוע</span><h3>תכנון העבודה באתר</h3><p>מטריצה לפי קומה ומודל תלת-ממדי שמראים מה עובר באיזו קומה, באיזה פיר ובאיזו תעלה.</p></div>
+      <div class="use"><span class="who">כל מי שמגיש כמויות</span><h3>שקיפות מול הלקוח</h3><p>חבילת ייצוא אחת עם כתב הכמויות, הדוח, המקרא והמודל. כל מספר בה מקושר לשרטוט שממנו הגיע.</p></div>
+    </div>
+  </section>
+
+  <section class="block wrap" id="savings">
+    <div class="intro">
+      <span class="eyebrow">חיסכון בזמן ובכסף</span>
+      <h2>כמה זמן זה חוסך בהצעת מחיר?</h2>
+      <p class="muted">בפרויקט לדוגמה העיבוד בהרצות שהושלמו לקח כשעתיים מכונה, כולל התיקונים. המחשבון למטה משווה לספירה ידנית לפי ההנחות שלכם. ערכי ברירת המחדל הם דוגמה בלבד, ואפשר לשנות כל אחד מהם.</p>
+    </div>
+    <div class="calc">
+      <div class="inputs">
+        <label for="cSheets">מספר גיליונות בפרויקט <span>תוכניות קומה, לוחות וסכמות</span><input id="cSheets" type="number" min="1" step="1" value="59" inputmode="numeric"></label>
+        <label for="cHours">שעות עבודה ידנית לגיליון <span>ספירה, מדידה והקלדה לגיליון ממוצע</span><input id="cHours" type="number" min="0" step="0.25" value="1.5" inputmode="decimal"></label>
+        <label for="cReview">שעות בדיקה עם כמותן <span>מעבר על הסיכום, הממצאים והפערים</span><input id="cReview" type="number" min="0" step="0.5" value="8" inputmode="decimal"></label>
+        <label for="cRate">עלות שעת עבודה של מתמחר (₪) <span>כולל עלויות מעסיק</span><input id="cRate" type="number" min="0" step="10" value="200" inputmode="numeric"></label>
+        <label for="cBids">הצעות מחיר בשנה <span>פרויקטים בהיקף דומה</span><input id="cBids" type="number" min="0" step="1" value="12" inputmode="numeric"></label>
+      </div>
+      <div class="out" aria-live="polite">
+        <div class="bar"><div class="row"><span>ספירה ידנית</span><span class="num" id="oManual"></span></div><div class="track"><div class="fill" id="bManual"></div></div></div>
+        <div class="bar app"><div class="row"><span>עם כמותן</span><span class="num" id="oApp"></span></div><div class="track"><div class="fill" id="bApp"></div></div></div>
+        <div class="saving">
+          <span class="muted">חיסכון להצעה אחת</span>
+          <span class="big" id="oSave"></span>
+          <span class="muted" id="oSaveH"></span>
+        </div>
+        <div class="saving">
+          <span class="muted">חיסכון בשנה</span>
+          <span class="big" id="oYear"></span>
+        </div>
+        <p class="calc-note">הערכה בלבד. החישוב: (גיליונות × שעות לגיליון) פחות שעות הבדיקה, כפול עלות השעה. הוא לא כולל את עלות המנוי של Claude, ולא את התועלת מטעות שנתפסת לפני ההגשה.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block wrap" id="costs">
+    <div class="intro">
+      <span class="eyebrow">הערכת עלויות בנייה</span>
+      <h2>מהכמויות למחיר <span class="status">כיוון להמשך</span></h2>
+      <p class="muted">היום כמותן מפיקה כמויות. כתב כמויות מדוד, עם סעיפים, יחידות וחלוקה לפי קומה ובניין, הוא הבסיס להערכת עלות. אלה הכיוונים שאפשר לבנות עליו:</p>
+    </div>
+    <div class="cost">
+      <div class="flow" aria-label="מכמויות לעלות">
+        <div><b>כמויות מדודות</b> · לכל סעיף, קומה ובניין</div>
+        <div class="arrow" aria-hidden="true">↓</div>
+        <div><b>מחירון</b> · המחירון של החברה או מחירון ענפי, לפי קוד סעיף</div>
+        <div class="arrow" aria-hidden="true">↓</div>
+        <div><b>כתב כמויות מתומחר</b> · חומר ועבודה לכל סעיף</div>
+        <div class="arrow" aria-hidden="true">↓</div>
+        <div><b>הערכת עלות</b> · לפי בניין, קומה ומערכת, עם טווח לאומדנים</div>
+      </div>
+      <ul>
+        <li><b>תמחור אוטומטי:</b> צירוף מחיר יחידה לכל סעיף, לפי קוד הסעיף, מהמחירון שהמשתמש מעלה.</li>
+        <li><b>חומרים:</b> כבלים לפי סוג ואורך, ותעלות לפי מידה, כבסיס להצעות מספקים.</li>
+        <li><b>עבודה:</b> שעות התקנה לפי נורמה לכל סוג אביזר, ומשם מספר צוותים ולוח זמנים.</li>
+        <li><b>טווח במקום מספר אחד:</b> אורכי הכבלים כבר מחושבים עם טווח מינימום–מקסימום, וכך גם העלות.</li>
+        <li><b>השוואת חלופות:</b> השפעת שינוי בתוכנית או בדגם גוף התאורה על העלות הכוללת.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block wrap privacy" id="privacy">
+    <div class="intro">
+      <span class="eyebrow">פרטיות</span>
+      <h2>הפרויקטים נשארים אצלכם</h2>
+    </div>
+    <ul>
+      <li>כמותן היא אפליקציה שמותקנת במחשב. קובצי הפרויקט והתוצרים נשמרים בתיקייה מקומית.</li>
+      <li>העיבוד נעשה דרך חשבון Claude של המשתמש, ולא דרך שרת של כמותן.</li>
+      <li>אפשר לעבוד מכמה מחשבים על תיקייה משותפת, ולשלוח ללקוח חבילת ייצוא אחת.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">כמותן · ניתוח תוכניות בנייה. התמונות בעמוד מפרויקט אמיתי, אחרי הסרת שמות ופרטים מזהים.</div>
+</footer>
+
+<dialog id="zoom" aria-label="תמונה מוגדלת"><img alt=""><p></p></dialog>
+
+<script>
+(function () {
+  // app screens: one figure, switched by the tabs
+  var SHOTS = [
+    ['img/a_overview.webp', '<b>סיכום וממצאים.</b> דף הפרויקט: תוצרים למעלה, ומתחת סיכום שבו כל ממצא מקושר למקום בשרטוט.'],
+    ['img/d_planlink.webp', '<b>קישור לשרטוט.</b> לחיצה על ממצא בסיכום פותחת את הגיליון בצד, עם טבעת סביב המקום.'],
+    ['img/f_excel.webp', '<b>כתב כמויות.</b> הכמות שנמדדה מול הכמות של המתכנן, ההפרש, ומקור לכל שורה. נפתח ישר באפליקציה.'],
+    ['img/e_legend.webp', '<b>מקרא.</b> כל סימן עם תמונה, ספירה, והבדלים בין המקרא לאופן שבו הוא מצויר בתוכנית.'],
+    ['img/c_progress.webp', '<b>התקדמות והרצות.</b> כל שלב עם מצב וזמן, ורשימת כל ההרצות של הפרויקט: מודל, משך ושימוש.'],
+    ['img/g_chat.webp', '<b>שיחה עם Claude.</b> שאלה על הפרויקט ודיווח על בעיה. התשובה כוללת טבלה, קישורים לשרטוט ובקשת תיקון מוכנה לשליחה.']
+  ];
+  var fig = document.getElementById('appShot'), img = fig.querySelector('img'), cap = fig.querySelector('figcaption');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tabs [role=tab]'));
+  function show(i) {
+    img.src = SHOTS[i][0]; img.alt = cap.textContent; cap.innerHTML = SHOTS[i][1]; img.alt = cap.textContent;
+    tabs.forEach(function (t, j) { t.setAttribute('aria-selected', String(i === j)); t.tabIndex = i === j ? 0 : -1; });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(i); });
+    t.addEventListener('keydown', function (e) {
+      var n = e.key === 'ArrowLeft' ? 1 : e.key === 'ArrowRight' ? -1 : 0;   // right-to-left order
+      if (n) { var k = (i + n + tabs.length) % tabs.length; show(k); tabs[k].focus(); e.preventDefault(); }
+    });
+  });
+  show(0);
+
+  // enlarge any screenshot
+  var dlg = document.getElementById('zoom'), zImg = dlg.querySelector('img'), zCap = dlg.querySelector('p');
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (t.tagName === 'IMG' && t.closest('figure') && typeof dlg.showModal === 'function') {
+      zImg.src = t.src; var c = t.closest('figure').querySelector('figcaption'); zCap.textContent = c ? c.textContent : '';
+      dlg.showModal();
+    } else if (dlg.open && (t === dlg || t === zImg)) dlg.close();
+  });
+
+  // savings calculator
+  var ids = ['cSheets', 'cHours', 'cReview', 'cRate', 'cBids'];
+  var fmt = function (n) { return Math.round(n).toLocaleString('he-IL'); };
+  function calc() {
+    var v = {}; ids.forEach(function (id) { var x = parseFloat(document.getElementById(id).value); v[id] = isFinite(x) && x > 0 ? x : 0; });
+    var manual = v.cSheets * v.cHours, app = v.cReview, saveH = Math.max(0, manual - app);
+    document.getElementById('oManual').textContent = fmt(manual) + ' שעות';
+    document.getElementById('oApp').textContent = fmt(app) + ' שעות בדיקה';
+    var max = Math.max(manual, app, 1);
+    document.getElementById('bManual').style.width = (manual / max * 100) + '%';
+    document.getElementById('bApp').style.width = (app / max * 100) + '%';
+    document.getElementById('oSave').textContent = '₪' + fmt(saveH * v.cRate);
+    document.getElementById('oSaveH').textContent = fmt(saveH) + ' שעות, כ-' + fmt(saveH / 9) + ' ימי עבודה';
+    document.getElementById('oYear').textContent = '₪' + fmt(saveH * v.cRate * v.cBids);
+  }
+  ids.forEach(function (id) { document.getElementById(id).addEventListener('input', calc); });
+  calc();
+})();
+</script>
+
+</body>
+</html>
