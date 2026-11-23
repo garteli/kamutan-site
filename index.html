@@ -176,6 +176,7 @@ dialog#zoom p { color: #eee; font-size: 14px; padding: 6px 2px; }
       <a href="#how">איך זה עובד</a>
       <a href="#outputs">מה מקבלים</a>
       <a href="#model">מודל תלת-ממדי</a>
+      <a href="#models">Revit ו-CAD</a>
       <a href="#errors">שגיאות בתוכניות</a>
       <a href="#uses">שימושים</a>
       <a href="#savings">חיסכון</a>
@@ -211,10 +212,10 @@ dialog#zoom p { color: #eee; font-size: 14px; padding: 6px 2px; }
       <h2>ארבעה שלבים, מהקבצים ועד בדיקה</h2>
     </div>
     <ol class="steps">
-      <li><h3>מעלים את החומרים</h3><p>קובצי PDF או ZIP כפי שהתקבלו מהמתכנן: תוכניות חשמל ותאורה, תשתיות, לוחות, סכמות וכתב הכמויות של המתכנן אם יש.</p></li>
+      <li><h3>מעלים את החומרים</h3><p>קובצי PDF או ZIP כפי שהתקבלו מהמתכנן: תוכניות חשמל ותאורה, תשתיות, לוחות, סכמות וכתב הכמויות של המתכנן אם יש. אפשר להעלות גם מודל IFC, טבלאות Revit וקובצי AutoCAD.</p></li>
       <li><h3>העיבוד רץ במחשב</h3><p>זיהוי הגיליונות והקומות, אימות קנה מידה, ספירת סמלים לפי המקרא, קריאת הלוחות, מדידת תעלות ואומדן כבלים. ההתקדמות מוצגת שלב אחרי שלב, ועיבוד שנעצר ממשיך מאותה נקודה.</p></li>
       <li><h3>מקבלים תוצרים</h3><p>כתב כמויות ב-Excel, דוח PDF, מקרא סימנים עם ספירה, מודל תלת-ממדי, וסיכום ממצאים שבו כל ממצא מקושר למקום בשרטוט.</p></li>
-      <li><h3>בודקים ומתקנים</h3><p>שואלים את Claude על הפרויקט בשיחה, מדווחים על בעיה, ושולחים בקשת תיקון. לקחים מאושרים נשמרים ומשפרים את הפרויקט הבא.</p></li>
+      <li><h3>בודקים ומתקנים</h3><p>שואלים את Claude על הפרויקט בשיחה, גם עם צילום מסך מהתוכנית, מדווחים על בעיה ושולחים בקשת תיקון. לקחים מאושרים נשמרים ומשפרים את הפרויקט הבא.</p></li>
     </ol>
   </section>
 
@@ -230,7 +231,8 @@ dialog#zoom p { color: #eee; font-size: 14px; padding: 6px 2px; }
       <button role="tab" aria-selected="false" data-shot="2" id="tab2">כתב כמויות</button>
       <button role="tab" aria-selected="false" data-shot="3" id="tab3">מקרא</button>
       <button role="tab" aria-selected="false" data-shot="4" id="tab4">התקדמות והרצות</button>
-      <button role="tab" aria-selected="false" data-shot="5" id="tab5">שיחה עם Claude</button>
+      <button role="tab" aria-selected="false" data-shot="5" id="tab5">שיחה עם תמונה</button>
+      <button role="tab" aria-selected="false" data-shot="6" id="tab6">דיווח על בעיה</button>
     </div>
     <figure id="appShot">
       <img src="img/a_overview.webp" alt="" width="1800" height="771">
@@ -253,6 +255,21 @@ dialog#zoom p { color: #eee; font-size: 14px; padding: 6px 2px; }
       <figure><img src="img/m6_drawing.webp" alt="המודל ליד השרטוט המקורי עם הסימונים" width="1800" height="802" loading="lazy"><figcaption><b>מודל ושרטוט זה ליד זה.</b> שלטי היציאה בחניון מסומנים בשרטוט המקורי, ואפשר לעבור ביניהם בחיצים.</figcaption></figure>
     </div>
     <figure><img src="img/h_model_app.webp" alt="מסלול כבל גנרטור במודל בתוך האפליקציה" width="1800" height="827" loading="lazy"><figcaption><b>מסלול של כבל.</b> כבל מהגנרטור שעל הגג: יורד בפיר, עובר בקומת הקרקע ומגיע לפנל הכבאים. ליד הכבל מוצגים האורך, איך הוא חושב ואילו הנחות שימשו.</figcaption></figure>
+  </section>
+
+  <section class="block wrap" id="models">
+    <div class="intro">
+      <span class="eyebrow">Revit, IFC ו-AutoCAD</span>
+      <h2>עובדים במודל? כמותן קורא גם אותו</h2>
+      <p class="muted">לצד תוכניות ה-PDF אפשר להעלות את מה שיוצא מכלי התכנון. כמותן קורא את הקבצים ישירות, בלי תוכנה נוספת.</p>
+    </div>
+    <div class="finds">
+      <div class="find"><span class="kind">BIM</span><h3>מודל IFC</h3><p>ייצוא מ-Revit או מכל תוכנת BIM. כל האלמנטים בכל המקצועות: חשמל, אינסטלציה, מיזוג, אדריכלות וקונסטרוקציה. מקובצים לפי סוג וקומה, עם אורך במטרים לתעלות, כבלים, צנרת ותעלות מיזוג.</p></div>
+      <div class="find"><span class="kind">Revit</span><h3>טבלאות Revit</h3><p>הקובץ ש-Revit מייצא מ-Export › Reports › Schedule, או טבלה שנשמרה כ-CSV או Excel. שורות הכותרת נמצאות אוטומטית, שורות סיכום מדולגות, ואורכים נקראים במטרים או ברגל ואינץ'.</p></div>
+      <div class="find"><span class="kind">AutoCAD</span><h3>DXF ו-DWG</h3><p>ספירת בלוקים לפי שכבה, כולל המאפיינים שלהם (למשל מספר מעגל), ואורכי קווים לפי שכבה לתעלות ולכבלים. קובצי DWG מומרים עם ממיר ODA החינמי, וההגדרות מראות אם הוא מותקן.</p></div>
+      <div class="find"><span class="kind">השוואה</span><h3>מודל מול תוכניות</h3><p>כשהמודל מכסה פריט, הכמות שלו היא הכמות המדודה, וכתב הכמויות מציין את המקור. כשיש גם תוכניות PDF של אותו היקף, נוצר גיליון "השוואה מודל מול תוכניות", והפערים הגדולים מופיעים בסיכום עם קישור לשרטוט.</p></div>
+    </div>
+    <p class="muted"><b>כמותן ליד Revit.</b> Revit בונה את המודל, וכשמודל החשמל מלא, הכמויות ממנו הן המקור הנכון. כמותן משלים אותו: הוא קורא את מה שיוצא למכרז, בודק שהמודל, השרטוטים וכתב הכמויות מסכימים, ומטפל בפרויקטים שמגיעים רק כ-PDF. קובצי RVT עצמם נקראים רק ב-Revit, ולכן מייצאים מהם IFC או טבלאות.</p>
   </section>
 
   <section class="block wrap" id="errors">
@@ -282,6 +299,7 @@ dialog#zoom p { color: #eee; font-size: 14px; padding: 6px 2px; }
       <div class="use"><span class="who">מנהלי פרויקטים</span><h3>גרסה חדשה של תוכניות</h3><p>מעלים את הגיליונות שהשתנו ומקבלים את הכמויות מחדש, בלי לספור שוב את כל הפרויקט.</p></div>
       <div class="use"><span class="who">רכש</span><h3>הזמנת חומרים</h3><p>אורכי כבלים לפי סוג וחתך, תעלות לפי מידה וסוג, וכמות אביזרים לפי דגם. כל זה עם טווח מינימום–מקסימום לאומדנים.</p></div>
       <div class="use"><span class="who">צוותי ביצוע</span><h3>תכנון העבודה באתר</h3><p>מטריצה לפי קומה ומודל תלת-ממדי שמראים מה עובר באיזו קומה, באיזה פיר ובאיזו תעלה.</p></div>
+      <div class="use"><span class="who">צוותי BIM</span><h3>המודל מול מה שיוצא למכרז</h3><p>השוואה בין הכמויות במודל לבין השרטוטים וכתב הכמויות שיוצאים למכרז, כדי לתפוס פערים לפני ההגשה.</p></div>
       <div class="use"><span class="who">כל מי שמגיש כמויות</span><h3>שקיפות מול הלקוח</h3><p>חבילת ייצוא אחת עם כתב הכמויות, הדוח, המקרא והמודל. כל מספר בה מקושר לשרטוט שממנו הגיע.</p></div>
     </div>
   </section>
@@ -396,7 +414,8 @@ dialog#zoom p { color: #eee; font-size: 14px; padding: 6px 2px; }
     ['img/f_excel.webp', '<b>כתב כמויות.</b> הכמות שנמדדה מול הכמות של המתכנן, ההפרש, ומקור לכל שורה. נפתח ישר באפליקציה.'],
     ['img/e_legend.webp', '<b>מקרא.</b> כל סימן עם תמונה, ספירה, והבדלים בין המקרא לאופן שבו הוא מצויר בתוכנית.'],
     ['img/c_progress.webp', '<b>התקדמות והרצות.</b> כל שלב עם מצב וזמן, ורשימת כל ההרצות של הפרויקט: מודל, משך ושימוש.'],
-    ['img/g_chat.webp', '<b>שיחה עם Claude.</b> שאלה על הפרויקט ודיווח על בעיה. התשובה כוללת טבלה, קישורים לשרטוט ובקשת תיקון מוכנה לשליחה.']
+    ['img/g2_chat_image.webp', '<b>שיחה עם Claude, עם תמונה.</b> מדביקים צילום מסך מהתוכנית ושואלים. Claude מזהה את הסמל, מציין את הפריט בכתב הכמויות ואת הכמות לפי קומה, ומקשר למקום בשרטוט שנפתח לצד השיחה.'],
+    ['img/g_chat.webp', '<b>דיווח על בעיה.</b> התשובה כוללת טבלה, קישורים לשרטוט ובקשת תיקון מוכנה לשליחה, שאפשר לערוך לפני שהיא נשלחת לעיבוד.']
   ];
   var fig = document.getElementById('appShot'), img = fig.querySelector('img'), cap = fig.querySelector('figcaption');
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.tabs [role=tab]'));
